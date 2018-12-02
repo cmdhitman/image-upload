@@ -1,7 +1,7 @@
 package com.test.imageupload.rest;
 
-import static com.test.imageupload.services.ErrorCode.BASE64_JSON_FORMAT;
-import static com.test.imageupload.services.ErrorCode.BASE64_SCHEME_INVALID;
+import static com.test.imageupload.services.ApiErrorCode.BASE64_JSON_FORMAT;
+import static com.test.imageupload.services.ApiErrorCode.BASE64_SCHEME_INVALID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

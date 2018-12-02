@@ -1,7 +1,7 @@
 package com.test.imageupload.services;
 
-import static com.test.imageupload.services.ErrorCode.INCORRECT_API_PARAMS;
-import static com.test.imageupload.services.ErrorCode.URL_MAX_FILES;
+import static com.test.imageupload.services.ApiErrorCode.INCORRECT_API_PARAMS;
+import static com.test.imageupload.services.ApiErrorCode.URL_MAX_FILES;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.imageupload.config.AppProperties;
@@ -24,6 +24,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Upload image service
+ *
+ * @author Vladimir Moiseev
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -34,6 +39,14 @@ public class ImageUploadService {
     private final ObjectMapper objectMapper;
     private final AppProperties appProperties;
 
+    /**
+     * Upload images by types
+     *
+     * @param files From multipart files
+     * @param urlImages From URL
+     * @param base64Images From base64
+     * @return Upload result
+     */
     public ImageUploadResult upload(MultipartFile[] files, URL[] urlImages, String base64Images) {
         ImageUploadResult uploadResult = new ImageUploadResult();
 
@@ -90,7 +103,7 @@ public class ImageUploadService {
         Throwable rootCause = ExceptionUtils.getRootCause(e);
 
         String message;
-        ErrorCode errorCode = ErrorCode.SYSTEM_ERROR;
+        ApiErrorCode errorCode = ApiErrorCode.SYSTEM_ERROR;
         if (rootCause instanceof ImageStoreException) {
             message = rootCause.getMessage();
             errorCode = ((ImageStoreException) rootCause).getErrorCode();

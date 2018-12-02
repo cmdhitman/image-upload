@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Image upload rest api
+ *
+ * @author Vladimir Moiseev
+ */
 @RestController
 @RequestMapping("image")
 @RequiredArgsConstructor

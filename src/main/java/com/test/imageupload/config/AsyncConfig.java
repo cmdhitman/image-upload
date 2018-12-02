@@ -6,6 +6,11 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+/**
+ * Thread poll config for async tasks
+ *
+ * @author Vladimir Moiseev
+ */
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {

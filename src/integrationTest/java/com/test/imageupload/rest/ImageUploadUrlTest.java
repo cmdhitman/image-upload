@@ -1,7 +1,7 @@
 package com.test.imageupload.rest;
 
-import static com.test.imageupload.services.ErrorCode.FILE_NOT_EXIST;
-import static com.test.imageupload.services.ErrorCode.URL_MAX_FILES;
+import static com.test.imageupload.services.ApiErrorCode.FILE_NOT_EXIST;
+import static com.test.imageupload.services.ApiErrorCode.URL_MAX_FILES;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

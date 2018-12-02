@@ -1,6 +1,6 @@
 package com.test.imageupload.rest;
 
-import static com.test.imageupload.services.ErrorCode.FILE_TOO_LARGE;
+import static com.test.imageupload.services.ApiErrorCode.FILE_TOO_LARGE;
 
 import com.test.imageupload.data.ImageStoreError;
 import com.test.imageupload.data.ImageUploadResult;
@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Intercept spring internal errors and convert to api errors
+ *
+ * @author Vladimir Moiseev
+ */
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package com.test.imageupload.services;
 
-import static com.test.imageupload.services.ErrorCode.FILE_TOO_LARGE;
+import static com.test.imageupload.services.ApiErrorCode.FILE_TOO_LARGE;
 
 import com.test.imageupload.config.AppProperties;
 import com.test.imageupload.data.Base64Image;
@@ -36,6 +36,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Image store service
+ *
+ * @author Vladimir Moiseev
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -56,6 +61,13 @@ public class ImageStorageService {
         Files.createDirectories(appProperties.getPhotoDir());
     }
 
+    /**
+     * Store multipart file
+     *
+     * @param file File
+     * @return Async result
+     * @throws ImageStoreException e
+     */
     @Async
     public CompletableFuture<ImageStoreResult> store(MultipartFile file) {
         try {
@@ -67,6 +79,13 @@ public class ImageStorageService {
         }
     }
 
+    /**
+     * Store file from url
+     *
+     * @param url URL
+     * @return Async result
+     * @throws ImageStoreException e
+     */
     @Async
     public CompletableFuture<ImageStoreResult> store(URL url) {
         try {
@@ -83,21 +102,29 @@ public class ImageStorageService {
             throw e;
         } catch (SocketTimeoutException e) {
             String message = messageSource.getMessage("imageStore.error.urlReadTimeout", new Object[]{url.toString()}, Locale.getDefault());
-            throw new ImageStoreException(message, ErrorCode.URL_READ_TIMEOUT);
+            throw new ImageStoreException(message, ApiErrorCode.URL_READ_TIMEOUT);
         } catch (FileNotFoundException e) {
             String message = messageSource.getMessage("imageStore.error.urlFileNotExist", new Object[]{url.toString()}, Locale.getDefault());
-            throw new ImageStoreException(message, ErrorCode.FILE_NOT_EXIST);
+            throw new ImageStoreException(message, ApiErrorCode.FILE_NOT_EXIST);
         } catch (Exception e) {
             throw getSystemError(url.toString(), e);
         }
     }
 
+    /**
+     * Store file from base64 image
+     *
+     * @param image Base64 image
+     * @param fileName image file name
+     * @return Async result
+     * @throws ImageStoreException e
+     */
     @Async
     public CompletableFuture<ImageStoreResult> store(Base64Image image, String fileName) {
         try {
             if (image.getBase64Image() == null) {
                 String message = messageSource.getMessage("imageStore.error.base64FormatJson", new Object[]{fileName}, Locale.getDefault());
-                throw new ImageStoreException(message, ErrorCode.BASE64_JSON_FORMAT);
+                throw new ImageStoreException(message, ApiErrorCode.BASE64_JSON_FORMAT);
             }
 
             byte[] bytes = Base64.getDecoder().decode(image.getBase64Image());
@@ -107,7 +134,7 @@ public class ImageStorageService {
             throw e;
         } catch (IllegalArgumentException e) {
             String message = messageSource.getMessage("imageStore.error.base64SchemeInvalid", new Object[]{fileName}, Locale.getDefault());
-            throw new ImageStoreException(message, ErrorCode.BASE64_SCHEME_INVALID);
+            throw new ImageStoreException(message, ApiErrorCode.BASE64_SCHEME_INVALID);
         } catch (Exception e) {
             throw getSystemError(fileName, e);
         }
@@ -124,7 +151,7 @@ public class ImageStorageService {
             String allowedMimes = String.join(", ", appProperties.getAllowedMimeTypes());
             String message = messageSource.getMessage("imageStore.error.fileFormat", new Object[]{mediaType, fileName, allowedMimes}, Locale.getDefault());
 
-            throw new ImageStoreException(message, ErrorCode.INVALID_FILE_FORMAT);
+            throw new ImageStoreException(message, ApiErrorCode.INVALID_FILE_FORMAT);
         }
 
         MimeType mimeType = MimeTypes.getDefaultMimeTypes().forName(mediaType);
@@ -136,7 +163,7 @@ public class ImageStorageService {
     private CompletableFuture<ImageStoreResult> storeImage(byte[] bytes, String originalFilename) {
         if (bytes.length == 0) {
             String message = messageSource.getMessage("imageStore.error.fileEmpty", new Object[]{originalFilename}, Locale.getDefault());
-            throw new ImageStoreException(message, ErrorCode.FILE_EMPTY);
+            throw new ImageStoreException(message, ApiErrorCode.FILE_EMPTY);
         }
 
         if (bytes.length > appProperties.getMaxFileSizeInBytes()) {
@@ -178,6 +205,6 @@ public class ImageStorageService {
         log.error(e.getMessage(), e);
 
         String message = messageSource.getMessage("imageStore.error.system", new Object[]{fileName}, Locale.getDefault());
-        return new ImageStoreException(message, ErrorCode.SYSTEM_ERROR);
+        return new ImageStoreException(message, ApiErrorCode.SYSTEM_ERROR);
     }
 }

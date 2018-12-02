@@ -1,6 +1,6 @@
 package com.test.imageupload.rest;
 
-import static com.test.imageupload.services.ErrorCode.FILE_EMPTY;
+import static com.test.imageupload.services.ApiErrorCode.FILE_EMPTY;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

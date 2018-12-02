@@ -1,8 +1,8 @@
 package com.test.imageupload.rest;
 
-import static com.test.imageupload.services.ErrorCode.FILE_TOO_LARGE;
-import static com.test.imageupload.services.ErrorCode.INCORRECT_API_PARAMS;
-import static com.test.imageupload.services.ErrorCode.INVALID_FILE_FORMAT;
+import static com.test.imageupload.services.ApiErrorCode.FILE_TOO_LARGE;
+import static com.test.imageupload.services.ApiErrorCode.INCORRECT_API_PARAMS;
+import static com.test.imageupload.services.ApiErrorCode.INVALID_FILE_FORMAT;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
