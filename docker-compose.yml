@@ -1,0 +1,8 @@
+version: '3'
+services:
+  image-server:
+    container_name: image-upload
+    build: .
+    image: image-upload:latest
+    ports:
+      - "8080:8080"

@@ -1,0 +1,41 @@
+ext{
+    lombokVersion = '1.18.4'
+    apacheTickaVersion = '1.19.1'
+    thumbnailatorVersion = '0.4.8'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply from: "$rootDir/integration-test.gradle"
+
+bootJar {
+    baseName = 'image-upload'
+    version = '1.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    compile("org.apache.tika:tika-parsers:${apacheTickaVersion}")
+    compile("net.coobird:thumbnailator:${thumbnailatorVersion}")
+    integrationTestCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+}

@@ -1,0 +1,21 @@
+app:
+  photoDir: photo
+  allowedMimeTypes: image/gif, image/jpeg, image/png
+  connectTimeoutMs: 5000
+  readTimeoutMs: 5000
+  maxFileSizeInMB: 5
+  maxRequestSizeInMB: 20
+  maxUrlFiles: 10
+  thumbnailWidth: 100
+  thumbnailHeight: 100
+  thumbnailSuffix: _thumb
+
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: ${app.maxFileSizeInMB}MB
+      max-request-size: ${app.maxRequestSizeInMB}MB
+server:
+  servlet:
+    context-path: /api/v1
