@@ -194,7 +194,7 @@ public class ImageStorageService {
         String id = StringUtils.substringBefore(name, ".");
 
         String thumbName = name.replaceFirst(id, id + appProperties.getThumbnailSuffix());
-        Path thumbPath = Paths.get(appProperties.getPhotoDir().toString(), name.replaceFirst(id, thumbName));
+        Path thumbPath = Paths.get(appProperties.getPhotoDir().toString(), thumbName);
 
         Thumbnails.of(file).size(appProperties.getThumbnailWidth(), appProperties.getThumbnailHeight()).toFile(thumbPath.toFile());
 

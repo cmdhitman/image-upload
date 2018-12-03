@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.ResultActions;
 
 @RunWith(SpringRunner.class)
-// TODO max request file size
 public class ImageUploadFileTest extends ImageUploadCommonTest {
 
     @Value("classpath:test_success.jpg")
