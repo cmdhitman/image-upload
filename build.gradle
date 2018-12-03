@@ -1,4 +1,4 @@
-ext{
+ext {
     lombokVersion = '1.18.4'
     apacheTickaVersion = '1.19.1'
     thumbnailatorVersion = '0.4.8'

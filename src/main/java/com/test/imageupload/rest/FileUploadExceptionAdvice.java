@@ -38,7 +38,7 @@ public class FileUploadExceptionAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     protected ResponseEntity<ImageUploadResult> handleMaxUploadSizeException() {
         String message = messageSource.getMessage("imageStore.error.fileIsTooLarge", new Object[]{maxSize, maxRequestSize}, Locale.getDefault());
-        ImageStoreError error= new ImageStoreError(message, FILE_TOO_LARGE);
+        ImageStoreError error = new ImageStoreError(message, FILE_TOO_LARGE);
 
         ImageUploadResult uploadResult = new ImageUploadResult();
         uploadResult.addError(error);
